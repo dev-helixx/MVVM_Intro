@@ -17,7 +17,7 @@ namespace MVVM_Intro.ViewModel
 
     public CustomersViewModel(List<CustomerModel> customers)
     {
-      LoadValues(customers); // This is i comment
+      LoadValues(customers); // This is i comment2
     }
 
   
