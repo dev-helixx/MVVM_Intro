@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
+using MVVM_Intro.Helpers;
 using MVVM_Intro.Model;
 using MVVM_Intro.ViewModel;
 
@@ -24,6 +25,11 @@ namespace MVVM_Intro
   /// </summary>
   public partial class MainWindow : Window
   {
+
+    // When using the MVVM pattern you want to separate the code into different roles.
+    // View: Where you will have the presentation for you application which in your case is the.xaml files.
+    // Model: Where you will have the data models and repositories for you application, in your case what data to observe and how it should be interpreted.
+    // ViewModel: The logic between your View and Model, for example when your collection of data should update in your view or something should happen when you click a button.
 
     /*****************************************************************************************************************************
      * NEW CHANGES:
@@ -40,9 +46,8 @@ namespace MVVM_Intro
      *****************************************************************************************************************************/
 
 
-    //Model
-    public const string path = @"c:\tmp\model.txt"; //DB file
-    private MainModel mainModel;
+  //Model
+  private MainModel mainModel;
 
 
     //ViewModel
@@ -51,8 +56,7 @@ namespace MVVM_Intro
     public MainWindow()
     {
       //Reading model
-
-      mainModel = new MainModel(path);
+      mainModel = new MainModel(StaticResources.DBPath);
 
 
       MainWindowViewModel = new MainWindowViewModel(mainModel);

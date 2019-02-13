@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace MVVM_Intro.Command
 {
-  public class Command : ICommand
+  public class ActionCommand : ICommand
   {
     public event EventHandler CanExecuteChanged;
 
@@ -16,7 +16,7 @@ namespace MVVM_Intro.Command
       CanExecuteChanged?.Invoke(this, null);
     }
 
-    public Command(Action execute, Func<bool> canExecute)
+    public ActionCommand(Action execute, Func<bool> canExecute)
     {
       this.execute = execute;
       this.canExecute = canExecute;

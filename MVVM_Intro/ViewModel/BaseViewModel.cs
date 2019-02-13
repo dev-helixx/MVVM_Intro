@@ -4,16 +4,17 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MVVM_Intro.Command;
 
 namespace MVVM_Intro.ViewModel
 {
-  public class ViewModel : INotifyPropertyChanged
+  public class BaseViewModel : INotifyPropertyChanged
   {
-    List<Command.Command> commands = new List<Command.Command>();
+    List<ActionCommand> commands = new List<ActionCommand>();
 
 
     /* */
-    public void RegisterCommand(Command.Command command)
+    public void RegisterCommand(ActionCommand command)
     {
       commands.Add(command);
     }
@@ -22,7 +23,7 @@ namespace MVVM_Intro.ViewModel
 
     protected void OnPropertyChanged(string property)
     {
-      foreach(Command.Command command in commands)
+      foreach(ActionCommand command in commands)
       {
         command.RaiseCanExecuteChanged();
       }

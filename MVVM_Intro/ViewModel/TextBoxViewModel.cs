@@ -6,33 +6,33 @@ using System.Threading.Tasks;
 
 namespace MVVM_Intro.ViewModel
 {
-  public class PeterViewModel : ViewModel
+  public class TextBoxViewModel : BaseViewModel
   {
 
   
 
-    public PeterViewModel(string content)
+    public TextBoxViewModel(string content)
     {
       LoadValues(content);
     }
 
-    private string _peter;
-    public string Peter
+    private string _textBox;
+    public string TextBox
     {
-      get { return _peter; }
+      get { return _textBox; }
       set
       {
-        if (value != _peter)
+        if (value != _textBox)
         {
-          _peter = value;
-          OnPropertyChanged(nameof(Peter));
+          _textBox = value;
+          OnPropertyChanged(nameof(TextBox));
         }
       }
     }
 
     public void LoadValues(string content)
     {
-      Peter = content;
+      TextBox = content;
     }
 
   }

@@ -8,30 +8,31 @@ using System.Xml.Serialization;
 
 namespace MVVM_Intro.Model
 {
-  public class MainModel : ViewModel.ViewModel
+  public class MainModel : ViewModel.BaseViewModel
   {
 
-    /* Model class to hold different properties */
-
     public List<CustomerModel> Customers { get; set; }
-    public string PetersSaying { get; set; }
+    public string TextBoxContent { get; set; }
 
     public MainModel()
     {
       Customers = new List<CustomerModel>();
     }
 
-    public MainModel(string filePath)
-      :this()
+    public MainModel(string DBPath)
     {
+     
+      // Fetch data from DB file
       MainModel mainModel = new MainModel();
       XmlSerializer x = new XmlSerializer(typeof(MainModel));
-      using (TextReader tr = new StreamReader(filePath))
+      using (TextReader tr = new StreamReader(DBPath))
       {
         mainModel = (MainModel)x.Deserialize(tr);
       }
+
+      // Initialize properties with data fetched from DB
       Customers = mainModel.Customers;
-      PetersSaying = mainModel.PetersSaying;
+      TextBoxContent = mainModel.TextBoxContent;
     }
 
 

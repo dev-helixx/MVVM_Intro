@@ -10,7 +10,7 @@ using MVVM_Intro.Model;
 
 namespace MVVM_Intro.ViewModel
 {
-  public class CustomersViewModel : ViewModel
+  public class CustomersViewModel : BaseViewModel
   {
 
     /* Constructor */

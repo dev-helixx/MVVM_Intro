@@ -18,7 +18,7 @@
     
     <!-- Different views and elements added to the grid of the main window -->
     <views:CustomerView Grid.Row="0" x:Name = "CustomerViewControl" DataContext="{Binding CustomersViewModel}" />
-    <views:PeterView Grid.Row="1" x:Name = "PeterControl" DataContext="{Binding PeterViewModel}"/>
+    <views:TextBoxView Grid.Row="1" x:Name="TextBoxViewControl" DataContext="{Binding TextBoxViewModel}" />
     <StackPanel Grid.Row="2">
       <Button Width="100" Content="Load" Command="{Binding LoadCommand}" Margin="5 5 5 5"/>
       <Button Width="100" Content="Save" Command="{Binding SaveCommand}" Margin="5 5 5 5"/>

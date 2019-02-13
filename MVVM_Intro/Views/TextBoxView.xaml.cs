@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace MVVM_Intro.Views
 {
     /// <summary>
-    /// Interaction logic for PeterView.xaml
+    /// Interaction logic for TextBoxView.xaml
     /// </summary>
-    public partial class PeterView : UserControl
+    public partial class TextBoxView : UserControl
     {
-        public PeterView()
+        public TextBoxView()
         {
             InitializeComponent();
         }

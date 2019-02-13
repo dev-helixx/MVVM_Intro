@@ -7,7 +7,7 @@ using MVVM_Intro.Model;
 
 namespace MVVM_Intro.ViewModel
 {
-    public class CustomerViewModel : ViewModel
+    public class CustomerViewModel : BaseViewModel
     {
 
     private CustomerModel Customer;
