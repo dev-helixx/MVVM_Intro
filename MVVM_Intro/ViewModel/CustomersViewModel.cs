@@ -17,26 +17,12 @@ namespace MVVM_Intro.ViewModel
 
     public CustomersViewModel(List<CustomerModel> customers)
     {
-      LoadValues(customers); // This is i comment2
+      Customers = new ObservableCollection<CustomerViewModel>();
+      LoadValues(customers); 
     }
 
   
-    private ObservableCollection<CustomerViewModel> _customers = new ObservableCollection<CustomerViewModel>();
-    public ObservableCollection<CustomerViewModel> Customers
-    {
-      get { return _customers; }
-      set
-      {
-
-        if (value != _customers)
-        {
-          _customers = value;
-          OnPropertyChanged(nameof(Customers));
-
-        }
-
-      }
-    }
+    public ObservableCollection<CustomerViewModel> Customers { get; set; }
 
 
     public List<CustomerModel> SaveValues()
