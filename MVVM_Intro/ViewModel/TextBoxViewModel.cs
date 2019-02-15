@@ -13,6 +13,7 @@ namespace MVVM_Intro.ViewModel
 
     public TextBoxViewModel(string content)
     {
+      // Method for populating the textbox
       LoadValues(content);
     }
 

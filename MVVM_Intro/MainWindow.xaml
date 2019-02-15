@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="600">
 
+  <!-- DataContext of MainWindow.xaml (this) is set in MainWindow.cs to MainWindowViewModel, 
+  where the other viewmodels and commands are defined --> 
 
   <Grid>
     <!--Define layout of the grid, eg. how many rows and columns and their respective weight-->
@@ -16,13 +18,18 @@
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
     
-    <!-- Different views and elements added to the grid of the main window -->
+    <!-- Different views and elements added to the grid of the main window below -->
+    
+    <!--First row-->
     <views:CustomerView Grid.Row="0" x:Name = "CustomerViewControl" DataContext="{Binding CustomersViewModel}" />
+    <!--Second row-->
     <views:TextBoxView Grid.Row="1" x:Name="TextBoxViewControl" DataContext="{Binding TextBoxViewModel}" />
+    <!--Third row-->
     <StackPanel Grid.Row="2">
       <Button Width="100" Content="Load" Command="{Binding LoadCommand}" Margin="5 5 5 5"/>
       <Button Width="100" Content="Save" Command="{Binding SaveCommand}" Margin="5 5 5 5"/>
     </StackPanel>
+    
   </Grid>
   
 </Window>

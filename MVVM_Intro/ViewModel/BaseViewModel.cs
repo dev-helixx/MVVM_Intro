@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using MVVM_Intro.Command;
 
 namespace MVVM_Intro.ViewModel
@@ -23,7 +24,8 @@ namespace MVVM_Intro.ViewModel
 
     protected void OnPropertyChanged(string property)
     {
-      foreach(ActionCommand command in commands)
+
+      foreach (ActionCommand command in commands)
       {
         command.RaiseCanExecuteChanged();
       }

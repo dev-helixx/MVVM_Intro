@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
+using MVVM_Intro.FileHandler;
 using MVVM_Intro.Helpers;
 using MVVM_Intro.Model;
 using MVVM_Intro.ViewModel;
@@ -46,8 +47,8 @@ namespace MVVM_Intro
      *****************************************************************************************************************************/
 
 
-  //Model
-  private MainModel mainModel;
+    //Model
+    private MainModel mainModel;
 
 
     //ViewModel
@@ -55,13 +56,23 @@ namespace MVVM_Intro
 
     public MainWindow()
     {
+
+
+
       //Reading model
       mainModel = new MainModel(StaticResources.DBPath);
 
 
       MainWindowViewModel = new MainWindowViewModel(mainModel);
-      // Set datacontext to that of MainWindowViewModel which controls the other viewModels
+
+      // Initialize filewatcher to watch for changes in the DB file
+      new Filewatcher(MainWindowViewModel).Init();
+
+
+      // Set datacontext to that of MainWindowViewModel which controls the other viewModels and commands
       DataContext = MainWindowViewModel;
+
+    
 
       InitializeComponent();
     }

@@ -9,11 +9,18 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Serialization;
 using MVVM_Intro.Command;
+using MVVM_Intro.FileHandler;
 using MVVM_Intro.Helpers;
 using MVVM_Intro.Model;
 
 namespace MVVM_Intro.ViewModel
 {
+
+  /**
+   * 
+   * This class holds information about the viewmodels and controls of the mainwindow
+   * 
+   **/
 
   public class MainWindowViewModel : BaseViewModel
   {
@@ -27,6 +34,7 @@ namespace MVVM_Intro.ViewModel
 
 
 
+   
 
     private bool _canExecuteControl;
     public bool CanExecuteControl
@@ -57,9 +65,14 @@ namespace MVVM_Intro.ViewModel
       }
     }
 
+    // Mandatory constructor
+    public MainWindowViewModel() { }
+
     private MainModel mm;
     public MainWindowViewModel(MainModel mm)
     {
+
+      
 
       this.mm = mm;
 
@@ -69,8 +82,8 @@ namespace MVVM_Intro.ViewModel
       TextBoxViewModel = new TextBoxViewModel(mm.TextBoxContent);
       TextBoxViewModel.PropertyChanged += TextBoxViewModel_PropertyChanged;
 
-     
-      CanExecuteControl = true;
+     // Per default one cannot press the buttons
+      CanExecuteControl = false;
 
       /* Register whenever notifypropertychanged is called, RaiseCanExecuteChanged will be called on the all registered commands aswell*/
       RegisterCommand(LoadCommand = new ActionCommand(Load, CanLoad));
@@ -95,6 +108,7 @@ namespace MVVM_Intro.ViewModel
     private void TextBoxViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
     {
       Dirty = true;
+      //CanExecuteControl = true;
     }
 
     public void LoadValues(MainModel mm)
@@ -108,13 +122,13 @@ namespace MVVM_Intro.ViewModel
     public void Load()
     {
 
-      MainModel mainModel = new MainModel();
+      MainModel mainModel = new MainModel(StaticResources.DBPath);
 
       LoadValues(mainModel);
 
       MessageBox.Show("Values loaded:" );
 
-      CanExecuteControl = true;
+      CanExecuteControl = false;
       
    
     }
@@ -136,14 +150,17 @@ namespace MVVM_Intro.ViewModel
         MessageBox.Show("Values saved");
       }
 
-      CanExecuteControl = true;
+      CanExecuteControl = false;
       Dirty = false;
       
      
     }
+
+    // This methods gets called if OnPropertyChanged is called from the CanExecuteControl property
     public bool CanLoad()
     {
-      return !CanExecuteControl;
+      //MessageBox.Show("CanLoad Executed");
+      return CanExecuteControl;
     }
 
     public bool CanSave()
