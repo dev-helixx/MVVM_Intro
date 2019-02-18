@@ -31,40 +31,55 @@ namespace MVVM_Intro.ViewModel
 
     public ActionCommand LoadCommand { get; set; }
     public ActionCommand SaveCommand { get; set; }
+    public ActionCommand EditCommand { get; set; }
 
 
 
 
-   
-
-    private bool _canExecuteControl;
-    public bool CanExecuteControl
+    private bool _canEditControl;
+    public bool CanEditControl
     {
-      get { return _canExecuteControl; }
+      get { return _canEditControl; }
       set
       {
-        if (value != _canExecuteControl)
+        if(value != _canEditControl)
         {
-          _canExecuteControl = value;
-          OnPropertyChanged(nameof(CanExecuteControl));
+          _canEditControl = value;
+          OnPropertyChanged(nameof(CanEditControl));
+        }
+      }
+    }
+
+
+    private bool _canLoadControl;
+    public bool CanLoadControl
+    {
+      get { return _canLoadControl; }
+      set
+      {
+        if (value != _canLoadControl)
+        {
+          _canLoadControl = value;
+          OnPropertyChanged(nameof(CanLoadControl));
         }
       }
     }
 
     /* If any changes have been made to any of the UI fields */
-    private bool _dirty;
-    public bool Dirty
+    private bool _changesDetected;
+    public bool ChangesDetected
     {
-      get { return _dirty; }
+      get { return _changesDetected; }
       set
       {
-        if(value != _dirty)
+        if(value != _changesDetected)
         {
-          _dirty = value;
-          OnPropertyChanged(nameof(Dirty));
+          _changesDetected = value;
+          OnPropertyChanged(nameof(ChangesDetected));
         }
       }
     }
+
 
     // Mandatory constructor
     public MainWindowViewModel() { }
@@ -72,7 +87,6 @@ namespace MVVM_Intro.ViewModel
     private MainModel mm;
     public MainWindowViewModel(MainModel mm)
     {
-
 
       this.mm = mm;
 
@@ -83,32 +97,35 @@ namespace MVVM_Intro.ViewModel
       TextBoxViewModel.PropertyChanged += TextBoxViewModel_PropertyChanged;
 
      // Per default one cannot press the buttons
-      CanExecuteControl = false;
+      CanLoadControl = false;
+      ChangesDetected = false;
+      CanEditControl = true;
 
       /* Register whenever notifypropertychanged is called, RaiseCanExecuteChanged will be called on the all registered commands aswell*/
       RegisterCommand(LoadCommand = new ActionCommand(Load, CanLoad));
       RegisterCommand(SaveCommand = new ActionCommand(Save, CanSave));
+      RegisterCommand(EditCommand = new ActionCommand(EditMode, CanEdit));
 
     }
+
+
 
     private void CustomersViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
     {
 
-
       // Gets called twice since both fx firstname and fullname is changed.
       // First time, Dirty is set to true and the save button is reenabled
       // Second time, we can avoid another raise if Dirty already has been set to true
-      if(!Dirty)
+      if(!ChangesDetected)
       {
-        Dirty = true;
+        ChangesDetected = true;
       }
       
     }
 
     private void TextBoxViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
     {
-      Dirty = true;
-      //CanExecuteControl = true;
+      ChangesDetected = true;
     }
 
     public void LoadValues(MainModel mm)
@@ -116,7 +133,7 @@ namespace MVVM_Intro.ViewModel
       CustomersViewModel.LoadValues(mm.Customers);
       TextBoxViewModel.LoadValues(mm.TextBoxContent);
 
-      Dirty = false;
+      ChangesDetected = false;
     }
 
     public void Load()
@@ -128,9 +145,14 @@ namespace MVVM_Intro.ViewModel
 
       MessageBox.Show("Values loaded:" );
 
-      CanExecuteControl = false;
-      
+      CanLoadControl = false;
    
+    }
+
+
+    public void EditMode()
+    {
+      CustomersViewModel.EditMode();
     }
 
     public void Save()
@@ -150,24 +172,16 @@ namespace MVVM_Intro.ViewModel
         MessageBox.Show("Values saved");
       }
 
-      CanExecuteControl = false;
-      Dirty = false;
+      CanLoadControl = false;
+      ChangesDetected = false;
       
      
     }
 
     // This methods gets called if OnPropertyChanged is called from the CanExecuteControl property
-    public bool CanLoad()
-    {
-      //MessageBox.Show("CanLoad Executed");
-      return CanExecuteControl;
-    }
-
-    public bool CanSave()
-    {
-      
-      return Dirty;
-    }
+    public bool CanLoad() { return CanLoadControl; }
+    public bool CanSave() { return ChangesDetected; }
+    public bool CanEdit() { return CanEditControl; }
 
   }
 }

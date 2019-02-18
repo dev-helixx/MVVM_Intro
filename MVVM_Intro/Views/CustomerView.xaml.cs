@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MVVM_Intro.ViewModel;
 
 namespace MVVM_Intro.Views
 {
@@ -22,6 +23,7 @@ namespace MVVM_Intro.Views
   {
     public CustomerView()
     {
+
       InitializeComponent();
     }
   }

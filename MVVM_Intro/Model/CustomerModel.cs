@@ -24,6 +24,7 @@ namespace MVVM_Intro.Model
       }
     }
 
+
     #endregion
 
   } 

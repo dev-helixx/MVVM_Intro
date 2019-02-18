@@ -62,7 +62,7 @@ namespace MVVM_Intro
       //Reading model
       mainModel = new MainModel(StaticResources.DBPath);
 
-
+      // Initialize main ViewModel
       MainWindowViewModel = new MainWindowViewModel(mainModel);
 
       // Initialize filewatcher to watch for changes in the DB file

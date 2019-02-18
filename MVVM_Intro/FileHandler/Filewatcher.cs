@@ -14,7 +14,6 @@ namespace MVVM_Intro.FileHandler
   public class Filewatcher
   {
     /* Private Member Fields */
-    private string DBFilepath = StaticResources.DBPath;
     private FileSystemWatcher watcher;
     private MainWindowViewModel mvvm;
 
@@ -30,7 +29,7 @@ namespace MVVM_Intro.FileHandler
       watcher = new FileSystemWatcher();
 
 
-      watcher.Path = Path.GetDirectoryName(DBFilepath);
+      watcher.Path = Path.GetDirectoryName(StaticResources.DBPath);
       // Watch for changes in LastAccess and LastWrite times, and
       // the renaming of files or directories.
       watcher.NotifyFilter = NotifyFilters.LastAccess
@@ -39,7 +38,7 @@ namespace MVVM_Intro.FileHandler
                            | NotifyFilters.DirectoryName;
 
       // Only watch single file.
-      watcher.Filter = Path.GetFileName(DBFilepath);
+      watcher.Filter = Path.GetFileName(StaticResources.DBPath);
 
       // Add event handlers.
       watcher.Changed += OnChanged;
@@ -57,7 +56,7 @@ namespace MVVM_Intro.FileHandler
       if(e.ChangeType == WatcherChangeTypes.Changed)
       {
 
-        Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => mvvm.CanExecuteControl = true));
+        Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => mvvm.CanLoadControl = true));
         
       }
       else if(e.ChangeType == WatcherChangeTypes.Deleted)

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views = "clr-namespace:MVVM_Intro.Views"
+        WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="600">
 
@@ -23,17 +24,21 @@
         <!--<ColumnDefinition Width = "*" />-->
       </Grid.ColumnDefinitions>
 
-      <Button Content = "Edit" 
-            Command = "{Binding NavCommand}" 
+      
+
+      <!--<Button Content = "Edit" 
+            Command = "{Binding EditCommand}" 
             CommandParameter = "edit" 
             Width="100"
-            Grid.Column="0"/>
+            Grid.Column="0" />-->
 
-      <Button Content = "Edit" 
+      <CheckBox x:Name="EditCheckBox" Content="Edit mode" Grid.Column="1" Margin="5 5 5 5" Command = "{Binding EditCommand}"/>
+
+      <!--<Button Content = "Edit" 
             Command = "{Binding NavCommand}" 
             CommandParameter = "orders" 
             Width="100"
-              Grid.Column="1"/>
+              Grid.Column="1"/>-->
     </Grid>
 
     <Grid x:Name = "MainContent" Grid.Row = "1">

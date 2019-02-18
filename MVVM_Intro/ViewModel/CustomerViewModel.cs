@@ -3,21 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using MVVM_Intro.Model;
 
 namespace MVVM_Intro.ViewModel
 {
-    public class CustomerViewModel : BaseViewModel
-    {
+  public class CustomerViewModel : BaseViewModel
+  {
 
     private CustomerModel Customer;
+
+
+    public CustomerViewModel() { }
 
     public CustomerViewModel(CustomerModel customer)
     {
       Customer = customer;
-
       LoadValues();
     }
+
+
+
+
+    private bool _buttonVisibility;
+    public bool ButtonVisibility
+    {
+      get { return _buttonVisibility; }
+      set
+      {
+        if (value != _buttonVisibility)
+        {
+          _buttonVisibility = value;
+          OnPropertyChanged(nameof(ButtonVisibility));
+        }
+      }
+    }
+
 
     private string _firstName;
     public string FirstName
@@ -44,7 +65,7 @@ namespace MVVM_Intro.ViewModel
         if (_lastName != value)
         {
           _lastName = value;
-          
+
           OnPropertyChanged(nameof(LastName));
           OnPropertyChanged(nameof(FullName));
         }
@@ -65,7 +86,13 @@ namespace MVVM_Intro.ViewModel
 
       FirstName = Customer.FirstName;
       LastName = Customer.LastName;
-     
+
+    }
+
+    public void EditMode()
+    {
+      // Enable delete button visibiliy
+      ButtonVisibility = !ButtonVisibility ? true : false;
     }
 
     public CustomerModel SaveValues()

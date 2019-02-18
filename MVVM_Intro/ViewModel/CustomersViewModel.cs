@@ -14,14 +14,12 @@ namespace MVVM_Intro.ViewModel
   {
 
     /* Constructor */
-
     public CustomersViewModel(List<CustomerModel> customers)
     {
       Customers = new ObservableCollection<CustomerViewModel>();
       LoadValues(customers); 
     }
 
-  
     public ObservableCollection<CustomerViewModel> Customers { get; set; }
 
 
@@ -44,9 +42,8 @@ namespace MVVM_Intro.ViewModel
       foreach (var customer in customers)
       {
 
-
         CustomerViewModel cvm = new CustomerViewModel(customer);
-        // Attach P ropertyChanged event to each object in the collection and act accordingly to its changes
+        // Attach PropertyChanged event to each object in the collection
         cvm.PropertyChanged += Cvm_PropertyChanged;
         
         Customers.Add(cvm);
@@ -58,6 +55,15 @@ namespace MVVM_Intro.ViewModel
     {
       //Whenever af change is made to an object in the collection, this event gets called
       OnPropertyChanged(nameof(Customers));
+    }
+
+    public void EditMode()
+    {
+      // For each child (CustomerModel) in the list, make the delete button visible
+      foreach (var customer in Customers)
+      {
+        customer.EditMode();
+      }
     }
   }
 }
