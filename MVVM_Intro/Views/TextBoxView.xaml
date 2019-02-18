@@ -7,6 +7,6 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
   <Grid>
-    <TextBox Text="{Binding TextBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="40"/>
+    <TextBox Text="{Binding TextBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="40" TextWrapping="Wrap"/>
   </Grid>
 </UserControl>

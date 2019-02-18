@@ -13,23 +13,50 @@
   <Grid>
     <!--Define layout of the grid, eg. how many rows and columns and their respective weight-->
     <Grid.RowDefinitions>
-      <RowDefinition Height="*"/>
-      <RowDefinition Height="*"/>
       <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
-    
+
+    <Grid x:Name = "NavBar" Grid.Row = "0" HorizontalAlignment="Left">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width = "*" />
+        <!--<ColumnDefinition Width = "*" />-->
+      </Grid.ColumnDefinitions>
+
+      <Button Content = "Edit" 
+            Command = "{Binding NavCommand}" 
+            CommandParameter = "edit" 
+            Width="100"
+            Grid.Column="0"/>
+
+      <Button Content = "Edit" 
+            Command = "{Binding NavCommand}" 
+            CommandParameter = "orders" 
+            Width="100"
+              Grid.Column="1"/>
+    </Grid>
+
+    <Grid x:Name = "MainContent" Grid.Row = "1">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+
+      <!--First row-->
+      <views:CustomerView Grid.Row="0" x:Name = "CustomerViewControl" DataContext="{Binding CustomersViewModel}" />
+      <!--Second row-->
+      <views:TextBoxView Grid.Row="1" x:Name="TextBoxViewControl" DataContext="{Binding TextBoxViewModel}" />
+      <!--Third row-->
+      <StackPanel Grid.Row="2">
+        <Button Width="100" Content="Load" Command="{Binding LoadCommand}" Margin="5 5 5 5"/>
+        <Button Width="100" Content="Save" Command="{Binding SaveCommand}" Margin="5 5 5 5"/>
+      </StackPanel>
+
+    </Grid>
     <!-- Different views and elements added to the grid of the main window below -->
     
-    <!--First row-->
-    <views:CustomerView Grid.Row="0" x:Name = "CustomerViewControl" DataContext="{Binding CustomersViewModel}" />
-    <!--Second row-->
-    <views:TextBoxView Grid.Row="1" x:Name="TextBoxViewControl" DataContext="{Binding TextBoxViewModel}" />
-    <!--Third row-->
-    <StackPanel Grid.Row="2">
-      <Button Width="100" Content="Load" Command="{Binding LoadCommand}" Margin="5 5 5 5"/>
-      <Button Width="100" Content="Save" Command="{Binding SaveCommand}" Margin="5 5 5 5"/>
-    </StackPanel>
-    
+   
   </Grid>
   
 </Window>

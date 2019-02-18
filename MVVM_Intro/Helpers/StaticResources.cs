@@ -8,6 +8,6 @@ namespace MVVM_Intro.Helpers
 {
   public class StaticResources 
   {
-    public const string DBPath = @"c:\tmp\model.txt";
+    public static string DBPath = @"c:\tmp\mvvm_db.txt";
   }
 }

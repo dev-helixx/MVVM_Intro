@@ -34,6 +34,7 @@ namespace MVVM_Intro.ViewModel
 
 
 
+
    
 
     private bool _canExecuteControl;
@@ -72,7 +73,6 @@ namespace MVVM_Intro.ViewModel
     public MainWindowViewModel(MainModel mm)
     {
 
-      
 
       this.mm = mm;
 
