@@ -5,14 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using MVVM_Intro.ViewModel;
 
 namespace MVVM_Intro.Model
 {
-  public class MainModel : ViewModel.BaseViewModel
+  [Serializable]
+  public class MainModel : BaseViewModel
   {
 
     public List<CustomerModel> Customers { get; set; }
     public string TextBoxContent { get; set; }
+
 
     public MainModel()
     {

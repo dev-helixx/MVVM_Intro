@@ -35,7 +35,6 @@ namespace MVVM_Intro.ViewModel
 
 
 
-
     private bool _canEditControl;
     public bool CanEditControl
     {
@@ -46,6 +45,23 @@ namespace MVVM_Intro.ViewModel
         {
           _canEditControl = value;
           OnPropertyChanged(nameof(CanEditControl));
+
+        }
+      }
+    }
+
+
+    private bool _editIsChecked;
+    public bool EditIsChecked
+    {
+      get { return _editIsChecked; }
+      set
+      {
+        if (value != _editIsChecked)
+        {
+          _editIsChecked = value;
+          OnPropertyChanged(nameof(EditIsChecked));
+
         }
       }
     }
@@ -81,6 +97,7 @@ namespace MVVM_Intro.ViewModel
     }
 
 
+
     // Mandatory constructor
     public MainWindowViewModel() { }
 
@@ -96,15 +113,19 @@ namespace MVVM_Intro.ViewModel
       TextBoxViewModel = new TextBoxViewModel(mm.TextBoxContent);
       TextBoxViewModel.PropertyChanged += TextBoxViewModel_PropertyChanged;
 
+      
+
      // Per default one cannot press the buttons
       CanLoadControl = false;
-      ChangesDetected = false;
+      ChangesDetected = true;
       CanEditControl = true;
+     
 
       /* Register whenever notifypropertychanged is called, RaiseCanExecuteChanged will be called on the all registered commands aswell*/
       RegisterCommand(LoadCommand = new ActionCommand(Load, CanLoad));
       RegisterCommand(SaveCommand = new ActionCommand(Save, CanSave));
       RegisterCommand(EditCommand = new ActionCommand(EditMode, CanEdit));
+      
 
     }
 
@@ -113,14 +134,15 @@ namespace MVVM_Intro.ViewModel
     private void CustomersViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
     {
 
-      // Gets called twice since both fx firstname and fullname is changed.
-      // First time, Dirty is set to true and the save button is reenabled
-      // Second time, we can avoid another raise if Dirty already has been set to true
-      if(!ChangesDetected)
+
+      //MessageBox.Show(e.PropertyName);
+
+      // Avoid multiple raise
+      if (!ChangesDetected)
       {
         ChangesDetected = true;
       }
-      
+
     }
 
     private void TextBoxViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -152,36 +174,43 @@ namespace MVVM_Intro.ViewModel
 
     public void EditMode()
     {
-      CustomersViewModel.EditMode();
+      // Enter edit mode
+      CustomersViewModel.EditMode(EditIsChecked);
+      // Do not activate save button when edit mode is entered
+      ChangesDetected = false;
     }
 
     public void Save()
     {
-      /* Xml Serilizer to write data to an existing txt file */
-      XmlSerializer x = new XmlSerializer(typeof(MainModel));
-      if (!string.IsNullOrWhiteSpace(StaticResources.DBPath) && File.Exists(StaticResources.DBPath))
-      {
-        using (TextWriter tw = new StreamWriter(StaticResources.DBPath))
-        {
-          // Update main model object with new values from textboxes
-          mm.Customers = CustomersViewModel.SaveValues();
-          mm.TextBoxContent = TextBoxViewModel.TextBox; 
+      ///* Xml Serilizer to write data to an existing txt file */
+      //XmlSerializer x = new XmlSerializer(typeof(MainModel));
+      //if (!string.IsNullOrWhiteSpace(StaticResources.DBPath) && File.Exists(StaticResources.DBPath))
+      //{
+      //  using (TextWriter tw = new StreamWriter(StaticResources.DBPath))
+      //  {
+      //    // Update main model object with new values from textboxes
+      //    mm.Customers = CustomersViewModel.SaveValues();
+      //    mm.TextBoxContent = TextBoxViewModel.TextBox; 
 
-          x.Serialize(tw, mm);
-        }
-        MessageBox.Show("Values saved");
-      }
+      //    x.Serialize(tw, mm);
+      //  }
+      //  MessageBox.Show("Values saved");
+      //}
 
-      CanLoadControl = false;
-      ChangesDetected = false;
+      //EditIsChecked = false;
+      //CanLoadControl = false;
+      //ChangesDetected = false;
+
+
       
-     
     }
 
-    // This methods gets called if OnPropertyChanged is called from the CanExecuteControl property
+    // Properties used to check wether a button is active or not
     public bool CanLoad() { return CanLoadControl; }
     public bool CanSave() { return ChangesDetected; }
     public bool CanEdit() { return CanEditControl; }
+
+
 
   }
 }

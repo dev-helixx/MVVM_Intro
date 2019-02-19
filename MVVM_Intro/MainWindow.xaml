@@ -21,24 +21,10 @@
     <Grid x:Name = "NavBar" Grid.Row = "0" HorizontalAlignment="Left">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width = "*" />
-        <!--<ColumnDefinition Width = "*" />-->
       </Grid.ColumnDefinitions>
 
-      
+      <CheckBox x:Name="EditCheckBox" Content="Edit mode" Grid.Column="0" Margin="5 5 5 5" IsChecked="{Binding EditIsChecked, UpdateSourceTrigger=PropertyChanged}" Command = "{Binding EditCommand}" />
 
-      <!--<Button Content = "Edit" 
-            Command = "{Binding EditCommand}" 
-            CommandParameter = "edit" 
-            Width="100"
-            Grid.Column="0" />-->
-
-      <CheckBox x:Name="EditCheckBox" Content="Edit mode" Grid.Column="1" Margin="5 5 5 5" Command = "{Binding EditCommand}"/>
-
-      <!--<Button Content = "Edit" 
-            Command = "{Binding NavCommand}" 
-            CommandParameter = "orders" 
-            Width="100"
-              Grid.Column="1"/>-->
     </Grid>
 
     <Grid x:Name = "MainContent" Grid.Row = "1">
@@ -49,7 +35,12 @@
       </Grid.RowDefinitions>
 
       <!--First row-->
-      <views:CustomerView Grid.Row="0" x:Name = "CustomerViewControl" DataContext="{Binding CustomersViewModel}" />
+      <ScrollViewer>
+        <views:CustomerView Grid.Row="0" x:Name = "CustomerViewControl" DataContext="{Binding CustomersViewModel}" />
+      </ScrollViewer>
+      
+      
+      
       <!--Second row-->
       <views:TextBoxView Grid.Row="1" x:Name="TextBoxViewControl" DataContext="{Binding TextBoxViewModel}" />
       <!--Third row-->

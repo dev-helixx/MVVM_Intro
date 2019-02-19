@@ -56,9 +56,6 @@ namespace MVVM_Intro
 
     public MainWindow()
     {
-
-
-
       //Reading model
       mainModel = new MainModel(StaticResources.DBPath);
 

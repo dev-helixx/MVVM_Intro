@@ -29,8 +29,8 @@
           <DataTemplate>
             
             <StackPanel Orientation = "Horizontal" Margin="3 5 3 5">
-             
-              <Button Content="Delete" Command="{Binding DeleteCommand}" Margin="5 5 5 5" Visibility="{Binding ButtonVisibility, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource booleanToVisibilityConverter}}"  />
+
+              <Button Content="Delete" Command="{Binding DeleteCommand}" Margin="5 5 5 5" Visibility="{Binding ButtonVisibility,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource booleanToVisibilityConverter}}"  />
               <Label Content="First name:"></Label>
               <TextBox Text = "{Binding FirstName, Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                         Width = "100" Margin = "3 5 3 5"/>

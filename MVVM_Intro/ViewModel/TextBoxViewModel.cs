@@ -26,7 +26,7 @@ namespace MVVM_Intro.ViewModel
         if (value != _textBox)
         {
           _textBox = value;
-          OnPropertyChanged(nameof(TextBox));
+          OnPropertyChanged("TextBox Content Changed");
         }
       }
     }
